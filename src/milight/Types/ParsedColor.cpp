@@ -1,17 +1,41 @@
 #include "../Types/ParsedColor.h"
-//#include <RGBConverter.h>
-#include "esphome.h"
 #include <TokenIterator.h>
 #include "../Types/GroupStateField.h"
 #include "../Helpers/IntParsing.h"
+#include <cmath>
+#include <algorithm>
 
 ParsedColor ParsedColor::fromRgb(uint16_t r, uint16_t g, uint16_t b) {
-  int hue;
+  int hue = 0;
   float saturation;
   float value;
 
   //rgb_to_hsv(float red, float green, float blue, int &hue, float &saturation, float &value)
-  esphome::rgb_to_hsv(r/255.00, g/255.00, b/255.00, hue, saturation, value);
+  // Adapted from https://esphome.io/api/namespaceesphome.html#a402f230bbe547e4a625ad28acf5e2647
+
+  float red = r / 255.00;
+  float green = g / 255.00;
+  float blue = b / 255.00;
+  float max_color_value = std::max(std::max(red, green), blue);
+  float min_color_value = std::min(std::min(red, green), blue);
+  float delta = max_color_value - min_color_value;
+
+  if (delta == 0)
+    hue = 0;
+  else if (max_color_value == red)
+    hue = int(fmod(((60 * ((green - blue) / delta)) + 360), 360));
+  else if (max_color_value == green)
+    hue = int(fmod(((60 * ((blue - red) / delta)) + 120), 360));
+  else if (max_color_value == blue)
+    hue = int(fmod(((60 * ((red - green) / delta)) + 240), 360));
+
+  if (max_color_value == 0)
+    saturation = 0;
+  else
+    saturation = delta / max_color_value;
+
+  value = max_color_value;
+
   uint8_t sat = saturation * 100;
 
   return ParsedColor{

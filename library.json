@@ -1,0 +1,29 @@
+{
+    "name": "milight",
+    "version": "0.0.2",
+    "description": "This is a replacement for a Milight/LimitlessLED remote/gateway hosted on an ESP8266.",
+    "keywords": "milight, esphome, limitlessled",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shbatm/esphome-milight"
+    },
+    "authors": [
+        {
+            "name": "sidoh"
+        },
+        {
+            "name": "hencou"
+        }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/hencou/esphome-components",
+    "dependencies": {
+        "SPI": "*",
+        "nrf24/RF24": "*",
+        "PathVariableHandlers": "*",
+        "ListLib": "*",
+        "bblanchon/ArduinoJson": "*"
+    },
+    "frameworks": "*",
+    "platforms": "*"
+}

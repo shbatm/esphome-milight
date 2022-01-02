@@ -1,19 +1,8 @@
-# esphome_components
-This is my collection of ESPhome custom componenents
+# MiLight Library for ESPhome
 
-# 1. MiLight for ESPhome
 This is a fork of Sidoh's Milight Hub: https://github.com/sidoh/esp8266_milight_hub/
-Instead of using a central hub this project aims to be used behind every wall switch.
-* This version is deployed by ESPHome
-* RGB_CCT Lights can be controlled MiLight remote or a wall push switch.
-* Wall switches will remains working even without WIFI.
-* Status updates will be send by the native ESPHome API.
 
-Button press functions:
-* Short press: light on/off
-* Long press: fade light in to max brightness
-* 2 short presses: night mode
-* 3 short presses: white mode
+This library is used with ESPHome, see the custom component in this repo: https://github.com/hencou/esphome_components
 
 Below the original text of Sidoh's Milight Hub with slight modifications:
 
@@ -101,12 +90,9 @@ Connect SPI pins (CE, SCK, MOSI, MISO) to appropriate SPI pins on the ESP8266. W
 The goal here is to flash your ESP with the firmware. This should be done with ESPHome.
 * Create a yaml file with the example provided.
 * Import the "milight" directory by copying the files to the root directory of your ESPHome installation. (In my case the root directory is "\config\esphome\")
-* Deploy this to your devices. 
+* Deploy this to your devices.
 
 #### Pair Bulbs
 
 If you need to pair some bulbs, how to do this is [described in the wiki](https://github.com/sidoh/esp8266_milight_hub/wiki/Pairing-new-bulbs).
 * When the ESPHome module is deployed in "DEBUG" mode, it will log received and decoded packets to determine Device and Group id's from your existing remotes
-
-# 2. DCF77 module ESPhome
-See the attached example "example_dcf77.yaml"

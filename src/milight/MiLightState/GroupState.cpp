@@ -1,10 +1,10 @@
 #include "../MiLightState/GroupState.h"
 #include "../Helpers/Units.h"
 #include "../MiLight/MiLightRemoteConfig.h"
-//#include <RGBConverter.h>
-#include "esphome.h"
 #include "../Types/BulbId.h"
 #include "../Types/MiLightCommands.h"
+#include <cmath>
+#include <algorithm>
 
 static const char* BULB_MODE_NAMES[] = {
   "white",
@@ -985,21 +985,50 @@ bool GroupState::isSetColor() const {
 
 ParsedColor GroupState::getColor() const {
   float rgb[3];
-  //RGBConverter converter;
   uint16_t hue = getHue();
   uint8_t sat = isSetSaturation() ? getSaturation() : 100;
 
   /// Convert hue (0-360) & saturation/value percentage (0-1) to RGB floats (0-1)
-  //hsv_to_rgb(int hue, float saturation, float value, float &red, float &green, float &blue);   
-  esphome::hsv_to_rgb(hue, sat/100.0, 1.0, rgb[0], rgb[1], rgb[2]);
+  // Adapted from https://esphome.io/api/namespaceesphome.html#ab355f3cfe24de774772a0ff8b6f7da09
+   float chroma = 1.0 * sat/100.0;
+   float hue_prime = fmod(hue / 60.0, 6);
+   float intermediate = chroma * (1 - fabs(fmod(hue_prime, 2) - 1));
+   float delta = 1.0 - chroma;
 
-  // converter.hsvToRgb(
-  //   hue / 360.0,
-  //   // Default to fully saturated
-  //   sat / 100.0,
-  //   1,
-  //   rgb
-  // );
+   if (0 <= hue_prime && hue_prime < 1) {
+     rgb[0] = chroma;
+     rgb[1] = intermediate;
+     rgb[2] = 0;
+   } else if (1 <= hue_prime && hue_prime < 2) {
+     rgb[0] = intermediate;
+     rgb[1] = chroma;
+     rgb[2] = 0;
+   } else if (2 <= hue_prime && hue_prime < 3) {
+     rgb[0] = 0;
+     rgb[1] = chroma;
+     rgb[2] = intermediate;
+   } else if (3 <= hue_prime && hue_prime < 4) {
+     rgb[0] = 0;
+     rgb[1] = intermediate;
+     rgb[2] = chroma;
+   } else if (4 <= hue_prime && hue_prime < 5) {
+     rgb[0] = intermediate;
+     rgb[1] = 0;
+     rgb[2] = chroma;
+   } else if (5 <= hue_prime && hue_prime < 6) {
+     rgb[0] = chroma;
+     rgb[1] = 0;
+     rgb[2] = intermediate;
+   } else {
+     rgb[0] = 0;
+     rgb[1] = 0;
+     rgb[2] = 0;
+   }
+
+   rgb[0] += delta;
+   rgb[1] += delta;
+   rgb[2] += delta;
+
   uint16_t r = rgb[0] * 255;
   uint16_t g = rgb[1] * 255;
   uint16_t b = rgb[2] * 255;
