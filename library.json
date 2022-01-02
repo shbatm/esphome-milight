@@ -5,7 +5,7 @@
     "keywords": "milight, esphome, limitlessled",
     "repository": {
         "type": "git",
-        "url": "https://github.com/shbatm/esphome-milight"
+        "url": "https://github.com/hencou/esphome-milight"
     },
     "authors": [
         {
