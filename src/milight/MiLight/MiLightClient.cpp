@@ -347,7 +347,7 @@ void MiLightClient::update(JsonObject request) {
 
   JsonVariant brightness = request[GroupStateFieldNames::BRIGHTNESS];
   JsonVariant level = request[GroupStateFieldNames::LEVEL];
-  const bool isBrightnessDefined = !brightness.isUndefined() || !level.isUndefined();
+  const bool isBrightnessDefined = !brightness.isUnbound() || !level.isUnbound();
 
   // Always turn on first
   if (parsedStatus == ON) {
@@ -454,7 +454,7 @@ JsonVariant MiLightClient::extractStatus(JsonObject object) {
 }
 
 uint8_t MiLightClient::parseStatus(JsonVariant val) {
-  if (val.isUndefined()) {
+  if (val.isUnbound()) {
     return STATUS_UNDEFINED;
   }
 
