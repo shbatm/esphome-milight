@@ -347,8 +347,6 @@ void MiLightClient::update(JsonObject request) {
 
   JsonVariant brightness = request[GroupStateFieldNames::BRIGHTNESS];
   JsonVariant level = request[GroupStateFieldNames::LEVEL];
-  //const bool isBrightnessDefined = !brightness.isUnbound() || !level.isUnbound();
-  const bool isBrightnessDefined = (brightness || level)? true:false;
 
   // Always turn on first
   if (parsedStatus == ON) {
