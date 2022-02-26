@@ -21,8 +21,8 @@
         "SPI": "*",
         "nrf24/RF24": "*",
         "PathVariableHandlers": "*",
-        "ListLib": "*",
-        "bblanchon/ArduinoJson": "*"
+        "bblanchon/ArduinoJson": "*",
+        "ListLib": "*"
     },
     "frameworks": "*",
     "platforms": "*"
