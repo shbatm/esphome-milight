@@ -322,14 +322,9 @@ T LinkedList_espMH<T>::remove(int index){
 
 template<typename T>
 T LinkedList_espMH<T>::get(int index){
- ESP_LOGCONFIG("test", "index: %i", index);
-  if (index >= 0 && index < _size) {
-    ListNode<T> *tmp = getNode(index);
-    T ret = tmp->data;
-ESP_LOGCONFIG("test", "Test.........");
-    return ret;
-  }
-  return T();
+  ListNode<T> *tmp = getNode(index);
+
+  return (tmp ? tmp->data : T());
 }
 
 template<typename T>
