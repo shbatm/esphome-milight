@@ -37,7 +37,7 @@ bool BulbId::operator==(const BulbId &other) {
 }
 
 uint32_t BulbId::getCompactId() const {
-  uint32_t id = (deviceId << 24) | (deviceType << 8) | groupId;
+  uint32_t id = (deviceId << 16) | (deviceType << 8) | groupId; //Changed by HC 24 > 16
   return id;
 }
 
