@@ -22,7 +22,7 @@
         "nrf24/RF24": "*",
         "PathVariableHandlers": "*",
         "bblanchon/ArduinoJson": "*",
-        "ListLib": "*"
+        "https://github.com/luisllamasbinaburo/Arduino-List/": "*"
     },
     "frameworks": "*",
     "platforms": "*"
