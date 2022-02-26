@@ -21,8 +21,7 @@
         "SPI": "*",
         "nrf24/RF24": "*",
         "PathVariableHandlers": "*",
-        "bblanchon/ArduinoJson": "*",
-        "https://github.com/luisllamasbinaburo/Arduino-List/": "*"
+        "bblanchon/ArduinoJson": "*"
     },
     "frameworks": "*",
     "platforms": "*"
