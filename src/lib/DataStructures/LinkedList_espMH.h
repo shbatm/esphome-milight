@@ -320,12 +320,15 @@ T LinkedList_espMH<T>::remove(int index){
   return ret;
 }
 
-
 template<typename T>
 T LinkedList_espMH<T>::get(int index){
-  ListNode<T> *tmp = getNode(index);
+  if (index >= 0 && index < _size) {
+    ListNode<T> *tmp = getNode(index);
+    T ret = tmp->data;
 
-  return (tmp ? tmp->data : T());
+    return ret;
+  }
+  return T();
 }
 
 template<typename T>
